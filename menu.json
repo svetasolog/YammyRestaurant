@@ -1,0 +1,86 @@
+{
+  "drink": {
+    "hot drink": {
+      "img": "img/hot_drink.png",
+      "items": {
+        "Tropical green Tea": {
+          "price": "2",
+          "cals": "0",
+          "dairy": ["no", "cream", "2% milk", "skim milk"],
+          "sweeteners": ["no", "sugar", "sweetener", "honey"]
+        },
+        "Latte": {
+          "price": "3.5",
+          "cals": "140",
+          "dairy": ["no", "2% milk", "skim milk"],
+          "sweeteners": ["no", "sugar", "sweetener"],
+          "Flavour Shots": ["no", "Chocolate Syrup", "Caramel Syrup", "Vanilla Syrup"],
+          "Toppings": ["no", "Whipped Topping"]
+        },
+        "Cappuccino": {
+          "price": "3.5",
+          "cals": "120"
+        },
+        "Hot Chocolate": {
+          "price": "2.5",
+          "cals": "280"
+        }
+      }
+    },
+    "cold drink": {
+      "img": "img/cold-drink.png",
+      "items": {
+        "Wildberry Hibiscus Lemonade": {
+          "price": "3.3",
+          "cals": "160"
+        },
+        "Mango Starfruit Lemonade": {
+          "price": "3.3",
+          "cals": "180"
+        },
+        "Peach Quenchers": {
+          "price": "2.7",
+          "cals": "150"
+        },
+        "Water": {
+          "price": "2.5",
+          "cals": "0"
+        },
+        "Apple juice": {
+          "price": "3.2",
+          "cals": "50"
+        }
+      }  
+    }
+  },
+  "food": {
+    "Soup": {
+      "img": "img/soup.png",
+      "items" : {
+        "Chicken Stew": {
+          "price": "12.5",
+          "cals": "350",
+          "description": "Gluten free. this delicious and nutritious blend of ingredients will remind you of the inside of mom's pot pie, thick, hearty, creamy and of course delicious. the taste is beautifully rich and very full and it will leave you wishing you had bought more, you have been warned. ingredients include: potato, carrots, onion, chicken, peas, butter, bell peppers, parsley, cream, tarragon, rice flour (100% rice flour) black pepper"
+        },
+        "African Peanut": {},
+        "Meat Chili": {}
+      }
+    },
+    "salad": {
+      "img": "img/salad.png",
+      "items": {
+        "Cobb Salad": {},
+        "Garden Salad": {} 
+      }
+    },
+    "sandwich": {
+      "img": "img/sandwich.png",
+      "items": {
+        "Buffalo Chicken Wrap": {},
+        "Chicken Pesto Wrap": {},
+        "Ham and Cheese Sandwich":{},
+        "Turkey Bacon": {} 
+      }
+    }
+  }
+}
