@@ -1,21 +1,25 @@
 {
   "drink": {
     "hot drink": {
-      "img": "img/hot_drink.png",
+      "img": "img/hot-drink.png",
       "items": {
         "Tropical green Tea": {
           "price": "2",
           "cals": "0",
-          "dairy": ["no", "cream", "2% milk", "skim milk"],
-          "sweeteners": ["no", "sugar", "sweetener", "honey"]
+          "options": {
+            "dairy": ["no", "cream", "2% milk", "skim milk"],
+            "sweeteners": ["no", "sugar", "sweetener", "honey"]
+          }
         },
         "Latte": {
           "price": "3.5",
           "cals": "140",
-          "dairy": ["no", "2% milk", "skim milk"],
-          "sweeteners": ["no", "sugar", "sweetener"],
-          "Flavour Shots": ["no", "Chocolate Syrup", "Caramel Syrup", "Vanilla Syrup"],
-          "Toppings": ["no", "Whipped Topping"]
+          "options": {
+            "dairy": ["no", "2% milk", "skim milk"],
+            "sweeteners": ["no", "sugar", "sweetener"],
+            "Flavour Shots": ["no", "Chocolate Syrup", "Caramel Syrup", "Vanilla Syrup"],
+            "Toppings": ["no", "Whipped Topping"]
+          }
         },
         "Cappuccino": {
           "price": "3.5",
@@ -54,7 +58,7 @@
     }
   },
   "food": {
-    "Soup": {
+    "soup": {
       "img": "img/soup.png",
       "items" : {
         "Chicken Stew": {
