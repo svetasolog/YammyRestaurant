@@ -1,7 +1,9 @@
 class Menu():
-    def __init__(self):
-        self.name={}
+    def __init__(self, name, img):
+        self.name=name
+        self.img=img
         self.items=[]
+
 class Item():
     def __init__(self, name, price, cals):
         self.name=name
@@ -15,15 +17,15 @@ class Drink(Item):
         super().__init__(name, price, cals)
 
 class ColdDrink(Drink):
-    def __init__(self, name, price, cals, options=[]):
+    def __init__(self, name, price, cals):
         super().__init__(name, price, cals)
-        self.options = options
-        print(f"{self.name}, {self.price}, {self.cals}, {self.options}")
+        self.options = ['no ice','ice','light ice','extra ice']
+
 class HotDrink(Drink):
     def __init__(self, name, price, cals, options):
         super().__init__(name, price, cals)
         self.options = options
-        print(f"{self.name}, {self.price}, {self.cals}, {self.options}")
+
 
 class Food(Item):
     def __init__(self, name, price, cals, descr):
