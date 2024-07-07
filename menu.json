@@ -7,27 +7,29 @@
           "price": "2",
           "cals": "0",
           "options": {
-            "dairy": ["no", "cream", "2% milk", "skim milk"],
-            "sweeteners": ["no", "sugar", "sweetener", "honey"]
+            "Dairy": ["no", "cream", "2% milk", "skim milk"],
+            "Sweeteners": ["no", "sugar", "sweetener", "honey"]
           }
         },
         "Latte": {
           "price": "3.5",
           "cals": "140",
           "options": {
-            "dairy": ["no", "2% milk", "skim milk"],
-            "sweeteners": ["no", "sugar", "sweetener"],
+            "Dairy": ["no", "2% milk", "skim milk"],
+            "Sweeteners": ["no", "sugar", "sweetener"],
             "Flavour Shots": ["no", "Chocolate Syrup", "Caramel Syrup", "Vanilla Syrup"],
             "Toppings": ["no", "Whipped Topping"]
           }
         },
         "Cappuccino": {
           "price": "3.5",
-          "cals": "120"
-        },
-        "Hot Chocolate": {
-          "price": "2.5",
-          "cals": "280"
+          "cals": "120",
+          "options": {
+            "Dairy": ["no", "2% milk", "skim milk"],
+            "Sweeteners": ["no", "sugar", "sweetener"],
+            "Flavour Shots": ["no", "Chocolate Syrup", "Caramel Syrup", "Vanilla Syrup"],
+            "Toppings": ["no", "Whipped Topping"]
+          }
         }
       }
     },
@@ -63,27 +65,59 @@
       "items" : {
         "Chicken Stew": {
           "price": "12.5",
-          "cals": "350",
-          "description": "Gluten free. this delicious and nutritious blend of ingredients will remind you of the inside of mom's pot pie, thick, hearty, creamy and of course delicious. the taste is beautifully rich and very full and it will leave you wishing you had bought more, you have been warned. ingredients include: potato, carrots, onion, chicken, peas, butter, bell peppers, parsley, cream, tarragon, rice flour (100% rice flour) black pepper"
+          "cals": "650",
+          "description": "Gluten free. this delicious and nutritious blend of ingredients will remind you of the inside of mom's pot pie, thick, hearty, creamy and of course delicious."
         },
-        "African Peanut": {},
-        "Meat Chili": {}
+        "African Peanut": {
+          "price": "10.5",
+          "cals": "450",
+          "description": "Gluten free and vegan. this african peanut comes with a combination of delicious spices"
+        },
+        "Meat Chili": {
+          "price": "12.5",
+          "cals": "410",
+          "description": "Gluten free and dairy free. meat lovers, you have been called."
+        }
       }
     },
     "salad": {
       "img": "img/salad.png",
       "items": {
-        "Cobb Salad": {},
-        "Garden Salad": {} 
+        "Cobb Salad": {
+          "price": "12",
+          "cals": "210",
+          "description": "Local free run turkey breast, bacon, cherry tomato, egg, cucumber, carrots, and mozzarella on a bed of spinach, served with ranch dressing"
+        },
+        "Garden Salad": {
+          "price": "10",
+          "cals": "370",
+          "description": "Carrots, cucumber, cherry tomato, mixed bell peppers, shaved almonds, and sprouts served on a bed of mixed greens with our house-made Italian dressing"
+        }
       }
     },
     "sandwich": {
       "img": "img/sandwich.png",
       "items": {
-        "Buffalo Chicken Wrap": {},
-        "Chicken Pesto Wrap": {},
-        "Ham and Cheese Sandwich":{},
-        "Turkey Bacon": {} 
+        "Buffalo Chicken Wrap": {
+          "price": "15",
+          "cals": "970",
+          "description": "Grilled local chicken breast, mozzarella cheese, cucumber, carrots, bell peppers, ranch dressing, Frank's red hot sauce, fresh tomatoes, and spinach, served in a whole wheat wrap"
+        },
+        "Chicken Pesto Wrap": {
+          "price": "15",
+          "cals": "860",
+          "description": "Pesto mayo, mozzarella, tomato, local chicken breast, spinach, bell pepper and cucumber in a whole wheat wrap"
+        },
+        "Ham and Cheese Sandwich":{
+          "price": "14",
+          "cals": "790",
+          "description": "Black forest ham, mozzarella, tomato, cucumber, sprouts, mixed greens, with mayo and mustard on multigrain bread"
+        },
+        "Turkey Bacon": {
+          "price": "15",
+          "cals": "910",
+          "description": "Local Free run Turkey breast, bacon, tomato, mozzarella, chipotle mayo, and spinach on sourdough"
+        }
       }
     }
   }
