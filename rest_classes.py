@@ -19,6 +19,8 @@ class Item():
 class Drink(Item):
     def __init__(self, name, price, cals):
         super().__init__(name, price, cals)
+    def get_descr(self):
+        return ""
 
 class ColdDrink(Drink):
     def __init__(self, name, price, cals):
@@ -43,24 +45,31 @@ class Food(Item):
     def __init__(self, name, price, cals, descr):
         super().__init__(name, price, cals)
         self.descr = descr
-
+    def get_descr(self):
+        return self.descr
 class Soup(Food):
-    def __init__(self, name, price, cals, descr, bread):
+    def __init__(self, name, price, cals, descr):
         super().__init__(name, price, cals, descr)
-        self.bread = bread
+        self.bread = {"Bread": ["no bread", "gluten-free bread", "slice of bread"]}
     def show_category(self):
         return "Soup"
+    def get_options(self):
+        return self.bread
 
 class Salad(Food):
-    def __init__(self, name, price, cals, descr, dressing):
+    def __init__(self, name, price, cals, descr):
         super().__init__(name, price, cals, descr)
-        self.dressing = dressing
+        self.dressing = {"Dressing": ["honey balsamic", "house italian"]}
     def show_category(self):
         return "Salad"
+    def get_options(self):
+        return self.dressing
 
 class Sandwich(Food):
-    def __init__(self, name, price, cals, descr, prep):
+    def __init__(self, name, price, cals, descr):
         super().__init__(name, price, cals, descr)
-        self.prep = prep
+        self.prep = {"Preparation choice": ["toasted", "not toasted"]}
     def show_category(self):
         return "Sandwich"
+    def get_options(self):
+        return self.prep
