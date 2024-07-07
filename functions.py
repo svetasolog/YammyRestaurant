@@ -12,6 +12,11 @@ def read_menu_file():
 def main_menu():
     main_menu=[]
     menu_file = read_menu_file()
+    drinks(menu_file, main_menu)
+    food(menu_file, main_menu)
+    return main_menu
+
+def drinks(menu_file, main_menu):
     for key,item in menu_file['drink'].items():
         menu=cl.Menu(key, item['img'])
         drink_type=key
@@ -26,4 +31,14 @@ def main_menu():
                 drink=cl.ColdDrink(name, det['price'], det['cals'])
             menu.items.append(drink)
         main_menu.append(menu)
-    return main_menu
+
+def get_food(food):
+    foods={"soup": cl.Soup, "salad": cl.Salad, "sandwich": cl.Sandwich}
+    return foods[food]
+def food(menu_file, main_menu):
+    for key,item in menu_file['food'].items():
+        menu=cl.Menu(key, item['img'])
+        for name, det in item['items'].items():
+            food=get_food(key)(name, det['price'], det['cals'], det['description'])
+            menu.items.append(food)
+        main_menu.append(menu)
