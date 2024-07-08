@@ -22,6 +22,7 @@ class RestApp(tk.Tk):
         self.show_frame("CategoryFrame")
     def show_frame(self, page_name):
         frame = self.frames[page_name]
+        frame.fill_out()
         frame.tkraise()
     def get_frame(self, page_name):
         return self.frames[page_name]
@@ -29,15 +30,16 @@ class CategoryFrame(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-
-        self.welcomeText = tk.Label(self, font=("Arial", 20), text="Welcome to Yammy Restaurant!")
+        self.container = tk.LabelFrame(self, borderwidth=0)
+        self.container.pack()
+        self.welcomeText = tk.Label(self.container, font=("Arial", 20), text="Welcome to Yammy Restaurant!")
         self.welcomeText.grid(row=0, column=0, padx=30, pady=15)
 
-        self.orderBtn = tk.Button(self, text="My Order",
+        self.orderBtn = tk.Button(self.container, text="My Order",
                            command=lambda: self.controller.show_frame("OrderFrame"))
         self.orderBtn.grid(row=1, column=0)
 
-        self.itemsFrame = tk.LabelFrame(self, text="Yammy menu")
+        self.itemsFrame = tk.LabelFrame(self.container, text="Yammy menu")
         self.itemsFrame.grid(row=2, column=0, padx=15, pady=15)
 
         menu = func.main_menu()
@@ -52,6 +54,9 @@ class CategoryFrame(tk.Frame):
                 col += 1
             self.photo.append(tk.PhotoImage(file=menu[i].img))
             MenuCard(self.itemsFrame, self.photo[i], menu[i].name, col, row, menu[i].items, self.controller)
+
+    def fill_out(self):
+        return
 
 class MenuCard():
     def __init__(self, root, photo, menu, col, row, items, controller):
@@ -90,6 +95,8 @@ class MenuFrame(tk.Frame):
         self.itemsFrame.pack(padx=20, pady=15)
         for i in range(len(items)):
             ItemLine(self.itemsFrame, items[i], i)
+    def fill_out(self):
+        return
 
 class ItemLine():
     def __init__(self, root, item, i):
@@ -128,6 +135,7 @@ class ItemLine():
 
             with open('order.txt', 'a') as fwrite:
                 fwrite.write(f"{self.name.cget("text")}, {self.price.cget("text")}, {self.cals.cget("text")}, {self.opts}, {self.quantity.get()}, ${self.calc_sum()}\n")
+
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred: {str(e)}")
     def calc_sum(self):
@@ -156,14 +164,16 @@ class OrderFrame(tk.Frame):
         self.menuBtn.pack(pady=15)
         self.itemsFrame = tk.LabelFrame(self, text="Yammy order")
         self.itemsFrame.pack(padx=20, pady=15)
-        self.show_order()
 
-    def show_order(self):
+    def fill_out(self):
+        self.itemsFrame.destroy()
+        self.itemsFrame = tk.LabelFrame(self, text="Yammy order")
+        self.itemsFrame.pack(padx=20, pady=15)
         try:
-            with open('order.txt', 'r') as f:
+            with open('order.txt', 'r') as self.f:
                 i = 0
                 sum = 0
-                for line in f:
+                for line in self.f:
                     item = line.strip('\n').split(',')
                     self.one_line(item, i)
                     sum += float(item[5].strip().strip("$"))
@@ -171,8 +181,8 @@ class OrderFrame(tk.Frame):
                 total = tk.Label(self.itemsFrame, font=("Arial", 12, "bold"), text=f"Total: ${sum}")
                 total.grid(row=i+1, column=5, padx=15, pady=3)
         except FileNotFoundError:
-            noOrder = tk.Label(self.itemsFrame, font=("Arial", 15), text="Please add items from the menu first.")
-            noOrder.pack()
+            self.noOrder = tk.Label(self.itemsFrame, font=("Arial", 15), text="Please add items from the menu first.")
+            self.noOrder.pack()
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred: {str(e)}")
     def one_line(self, item, i):
