@@ -114,28 +114,38 @@ class ItemLine():
         self.cals = tk.Label(self.itemFrame, text=f"{item.get_cals()} Cals")
         self.cals.grid(row=0, column=2, padx=10)
         self.optsFrame = tk.LabelFrame(self.itemFrame, text="Options")
-        self.optsFrame.grid(row=0, column=3, padx=10)
+        self.optsFrame.grid(row=0, column=3, padx=10, pady=4)
         self.opt=[]
         n = 0
         for opt, points in item.get_options().items():
             self.opt.append(Option(self.optsFrame, opt, n, points))
             n += 1
-        self.quantity = tk.Spinbox(self.itemFrame, from_=1, to=50, width=3)
-        self.quantity.grid(row=0, column=4, padx=10)
+        self.qtyLabel = tk.LabelFrame(self.itemFrame, text="Qty")
+        self.qtyLabel.grid(row=0, column=4)
+        self.quantity = tk.Spinbox(self.qtyLabel, from_=1, to=50, width=3)
+        self.quantity.grid(row=0, column=0, padx=10, pady=4)
         self.addBtn = tk.Button(self.itemFrame, text="Add", width=15, command=self.add_item)
         self.addBtn.grid(row=0, column=5, padx=10)
         if item.get_descr() != "":
             self.descr = tk.Label(self.itemFrame, text=item.get_descr())
             self.descr.grid(row=1, columnspan=6, padx=10, sticky="ew")
+
+    def validate(self, user_inp):
+        if user_inp is "" or user_inp=="0":
+            messagebox.showwarning("Error. Invalid data.", "You must enter the quantity")
+        elif not user_inp.isnumeric():
+            messagebox.showwarning("Error. Invalid data.", "The quantity must be a number!")
+        else:
+            return 1
     def add_item(self):
         try:
             self.opts=""
             for opt in self.opt:
                 self.opts+=opt.get_option()+"|"
 
-            with open('order.txt', 'a') as fwrite:
-                fwrite.write(f"{self.name.cget("text")}, {self.price.cget("text")}, {self.cals.cget("text")}, {self.opts}, {self.quantity.get()}, ${self.calc_sum()}\n")
-
+            if self.validate(self.quantity.get()) == 1:
+                with open('order.txt', 'a') as fwrite:
+                    fwrite.write(f"{self.name.cget("text")}, {self.price.cget("text")}, {self.cals.cget("text")}, {self.opts}, {self.quantity.get()}, ${self.calc_sum()}\n")
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred: {str(e)}")
     def calc_sum(self):
@@ -149,7 +159,7 @@ class Option():
     def __init__(self, root, opt, n, points):
         self.labelName = tk.Label(root, text=opt)
         self.labelName.grid(row=n, column=0)
-        self.options = ttk.Combobox(root, values=points, width=20)
+        self.options = ttk.Combobox(root, values=points, width=20, state="readonly")
         self.options.grid(row=n, column=1, padx=10, pady=5)
         self.options.current(0)
     def get_option(self):
