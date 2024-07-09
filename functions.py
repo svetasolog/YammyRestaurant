@@ -7,7 +7,7 @@ def read_menu_file():
             data = json.load(f)
         return data
     except FileNotFoundError:
-        messagebox.showerror("Error", "File with menu is not found.")
+        messagebox.showerror("Error", "File 'menu.json' is not found.")
 
 def main_menu():
     main_menu=[]
