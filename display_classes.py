@@ -60,14 +60,19 @@ class CategoryFrame(tk.Frame):
 
 class MenuCard():
     def __init__(self, root, photo, menu, col, row, items, controller):
+        self.root = root
+        self.photo = photo
+        self.menu = menu
+        self.col = col
+        self.row = row
         self.controller = controller
         self.items = items
-        self.label = tk.Label(root, image=photo, text=menu, compound="top", cursor="hand2", font=("Arial", 12))
-        self.label.grid(row=row, column=col, padx=10, pady=10)
-        self.label.bind("<Button-1>", lambda e: self.menu_frame(self.items))
-    def menu_frame(self, items):
+        self.label = tk.Label(self.root, image=self.photo, text=self.menu, compound="top", cursor="hand2", font=("Arial", 12))
+        self.label.grid(row=self.row, column=self.col, padx=10, pady=10)
+        self.label.bind("<Button-1>", lambda e: self.menu_frame())
+    def menu_frame(self):
         self.controller.show_frame("MenuFrame")
-        self.controller.get_frame("MenuFrame").show_item(items)
+        self.controller.get_frame("MenuFrame").show_item(self.items)
 
 class MenuFrame(tk.Frame):
     def __init__(self, parent, controller):
@@ -99,25 +104,28 @@ class MenuFrame(tk.Frame):
         return
 
 class ItemLine():
-    def __init__(self, root, item, i):
-        self.itemFrame = tk.LabelFrame(root)
-        self.itemFrame.grid(row=i, column=0, padx=20, pady=5, sticky="nsew")
+    def __init__(self, root, item, row):
+        self.root = root
+        self.item = item
+        self.row = row
+        self.itemFrame = tk.LabelFrame(self.root)
+        self.itemFrame.grid(row=self.row, column=0, padx=20, pady=5, sticky="nsew")
         self.name = tk.Label(self.itemFrame,
-                             text=item.get_name(),
+                             text=self.item.get_name(),
                              width=30,
                              height=3,
                              font=("Arial", 10, "bold"),
                              background="lightgreen")
         self.name.grid(row=0, column=0, padx=10, pady=5)
-        self.price = tk.Label(self.itemFrame, text=f"${item.get_price()}", font=("Arial", 10))
+        self.price = tk.Label(self.itemFrame, text=f"${self.item.get_price()}", font=("Arial", 10))
         self.price.grid(row=0, column=1, padx=10)
-        self.cals = tk.Label(self.itemFrame, text=f"{item.get_cals()} Cals")
+        self.cals = tk.Label(self.itemFrame, text=f"{self.item.get_cals()} Cals")
         self.cals.grid(row=0, column=2, padx=10)
         self.optsFrame = tk.LabelFrame(self.itemFrame, text="Options")
         self.optsFrame.grid(row=0, column=3, padx=10, pady=4)
         self.opt=[]
         n = 0
-        for opt, points in item.get_options().items():
+        for opt, points in self.item.get_options().items():
             self.opt.append(Option(self.optsFrame, opt, n, points))
             n += 1
         self.qtyLabel = tk.LabelFrame(self.itemFrame, text="Qty")
@@ -126,12 +134,12 @@ class ItemLine():
         self.quantity.grid(row=0, column=0, padx=10, pady=4)
         self.addBtn = tk.Button(self.itemFrame, text="Add", width=15, command=self.add_item)
         self.addBtn.grid(row=0, column=5, padx=10)
-        if item.get_descr() != "":
-            self.descr = tk.Label(self.itemFrame, text=item.get_descr())
+        if self.item.get_descr() != "":
+            self.descr = tk.Label(self.itemFrame, text=self.item.get_descr())
             self.descr.grid(row=1, columnspan=6, padx=10, sticky="ew")
 
     def validate(self, user_inp):
-        if user_inp is "" or user_inp=="0":
+        if user_inp=="" or user_inp=="0":
             messagebox.showwarning("Error. Invalid data.", "You must enter the quantity")
         elif not user_inp.isnumeric():
             messagebox.showwarning("Error. Invalid data.", "The quantity must be a number!")
@@ -156,11 +164,15 @@ class ItemLine():
             messagebox.showerror("Error", f"An error occurred: {str(e)}")
 
 class Option():
-    def __init__(self, root, opt, n, points):
-        self.labelName = tk.Label(root, text=opt)
-        self.labelName.grid(row=n, column=0)
-        self.options = ttk.Combobox(root, values=points, width=20, state="readonly")
-        self.options.grid(row=n, column=1, padx=10, pady=5)
+    def __init__(self, root, opt, row, points):
+        self.root = root
+        self.opt = opt
+        self.row = row
+        self.points = points
+        self.labelName = tk.Label(self.root, text=self.opt)
+        self.labelName.grid(row=self.row, column=0)
+        self.options = ttk.Combobox(self.root, values=self.points, width=20, state="readonly")
+        self.options.grid(row=self.row, column=1, padx=10, pady=5)
         self.options.current(0)
     def get_option(self):
         return f"{self.labelName.cget("text")}: {self.options.get()}"
@@ -195,25 +207,25 @@ class OrderFrame(tk.Frame):
             self.noOrder.pack()
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred: {str(e)}")
-    def one_line(self, item, i):
+    def one_line(self, item, row):
         orderName = tk.Label(self.itemsFrame,
                              text=item[0],
                              width=30,
                              height=3,
                              font=("Arial", 10, "bold"),
                              background="lightgreen")
-        orderName.grid(row=i, column=0, padx=15, pady=3)
+        orderName.grid(row=row, column=0, padx=15, pady=3)
         orderCals = tk.Label(self.itemsFrame, text=item[2])
-        orderCals.grid(row=i, column=1, padx=5, pady=3)
+        orderCals.grid(row=row, column=1, padx=5, pady=3)
         opts = item[3].strip().strip("|").split("|")
         orderOpt = tk.LabelFrame(self.itemsFrame, text="Options")
-        orderOpt.grid(row=i, column=2, padx=5, pady=3)
+        orderOpt.grid(row=row, column=2, padx=5, pady=3)
         for r in range(len(opts)):
             opt = tk.Label(orderOpt, text=opts[r])
             opt.grid(row=r, column=0, padx=5, pady=2)
         orderQuantity = tk.Label(self.itemsFrame, text=f"{item[4]}x")
-        orderQuantity.grid(row=i, column=3, padx=5, pady=3)
+        orderQuantity.grid(row=row, column=3, padx=5, pady=3)
         orderPrice = tk.Label(self.itemsFrame, text=item[1])
-        orderPrice.grid(row=i, column=4, padx=5, pady=3)
+        orderPrice.grid(row=row, column=4, padx=5, pady=3)
         orderSum = tk.Label(self.itemsFrame, text=item[5])
-        orderSum.grid(row=i, column=5, padx=5, pady=3)
+        orderSum.grid(row=row, column=5, padx=5, pady=3)
