@@ -35,7 +35,7 @@ class CategoryFrame(tk.Frame):
         self.welcomeText = tk.Label(self.container, font=("Arial", 20), text="Welcome to Yammy Restaurant!")
         self.welcomeText.grid(row=0, column=0, padx=30, pady=15)
 
-        self.orderBtn = tk.Button(self.container, text="My Order", width=20,
+        self.orderBtn = tk.Button(self.container, text="My Order", width=20, background="white",
                            command=lambda: self.controller.show_frame("OrderFrame"))
         self.orderBtn.grid(row=1, column=0)
 
@@ -80,10 +80,10 @@ class MenuFrame(tk.Frame):
         self.controller = controller
         self.btns = tk.Frame(self)
         self.btns.pack()
-        self.menuBtn = tk.Button(self.btns, text="<< Back to Main Menu", width=20,
+        self.menuBtn = tk.Button(self.btns, text="<< Back to Main Menu", width=20, background="white",
                            command=lambda: self.controller.show_frame("CategoryFrame"))
         self.menuBtn.grid(row=0, column=0, pady=15)
-        self.orderBtn = tk.Button(self.btns, text="My Order", width=20,
+        self.orderBtn = tk.Button(self.btns, text="My Order", width=20, background="white",
                            command=lambda: self.controller.show_frame("OrderFrame"))
         self.orderBtn.grid(row=0, column=1, padx=15)
 
@@ -132,7 +132,7 @@ class ItemLine():
         self.qtyLabel.grid(row=0, column=4)
         self.quantity = tk.Spinbox(self.qtyLabel, from_=1, to=50, width=3)
         self.quantity.grid(row=0, column=0, padx=10, pady=4)
-        self.addBtn = tk.Button(self.itemFrame, text="Add", width=15, command=self.add_item)
+        self.addBtn = tk.Button(self.itemFrame, text="Add", width=15, background="white", command=self.add_item)
         self.addBtn.grid(row=0, column=5, padx=10)
         if self.item.get_descr() != "":
             self.descr = tk.Label(self.itemFrame, text=self.item.get_descr(), width=135)
@@ -182,7 +182,7 @@ class OrderFrame(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        self.menuBtn = tk.Button(self, text="Main Menu", width=20,
+        self.menuBtn = tk.Button(self, text="Main Menu", width=20, background="white",
                            command=lambda: self.controller.show_frame("CategoryFrame"))
         self.menuBtn.pack(pady=15)
         header=tk.Label(self, text="My Order", font=("Arial", 15, "bold"))
